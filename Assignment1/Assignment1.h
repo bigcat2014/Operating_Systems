@@ -1,0 +1,8 @@
+//
+// Created by logan on 10/3/18.
+//
+
+#ifndef ASSIGNMENT1_ASSIGNMENT1_H
+#define ASSIGNMENT1_ASSIGNMENT1_H
+
+#endif //ASSIGNMENT1_ASSIGNMENT1_H
