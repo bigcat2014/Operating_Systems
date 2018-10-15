@@ -7,7 +7,26 @@
 
 //<editor-fold desc="Includes">
 
-#include "Assignment1.h"
+#include "5ps.h"
+#include "helper.h"
+
+//</editor-fold>
+
+//<editor-fold desc="Enumerations">
+
+// Option flags
+typedef enum {
+    // The PID flag
+    fPID		= 1 << 0,
+    // The State flag
+    fSTATE		= 1 << 1,
+    // The Time flag
+    fTIME		= 1 << 2,
+    // The Virtual flag
+    fVIRTUAL	= 1 << 3,
+    // The Command flag
+    fCOMMAND	= 1 << 4
+} Option;
 
 //</editor-fold>
 

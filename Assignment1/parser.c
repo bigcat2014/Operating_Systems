@@ -28,20 +28,6 @@
 
 //<editor-fold desc="Enumerations">
 
-// Option flags
-typedef enum {
-    // The PID flag
-    fPID		= 1 << 0,
-    // The State flag
-    fSTATE		= 1 << 1,
-    // The Time flag
-    fTIME		= 1 << 2,
-    // The Virtual flag
-    fVIRTUAL	= 1 << 3,
-    // The Command flag
-    fCOMMAND	= 1 << 4
-} Option;
-
 // Parser states
 typedef enum {
     // The error state
@@ -51,32 +37,6 @@ typedef enum {
     // The -p flag was received state
     P_RECEIVED = 1 << 1
 } ParsingState;
-
-//</editor-fold>
-
-//<editor-fold desc="Bit manipulations">
-
-/*
- * Name: set_bits
- * Input: A destination to manipulate and a mask to set bits in the destination
- * Output: None
- * Description: Sets specific bits in a destination according to a bit mask
- */
-void set_bits(int *dest, Option mask){ *dest = *dest | mask; }
-/*
- * Name: clear_bits
- * Input: A destination to manipulate and a mask to clear bits in the destination
- * Output: None
- * Description: Clears specific bits in a destination according to a bit mask
- */
-void clear_bits(int *dest, Option mask){ *dest = *dest & ~mask; }
-/*
- * Name: mask_bits
- * Input: A destination to check and a mask of bits to verify
- * Output: Whether or not the bits according to the mask are set
- * Description: Checks if the bits in the destination are set according to the mask
- */
-BOOL mask_bits(int options, Option mask){ return options & mask; }
 
 //</editor-fold>
 
