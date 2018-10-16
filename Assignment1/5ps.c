@@ -15,6 +15,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
+#include <zconf.h>
 
 //</editor-fold>
 
@@ -22,6 +23,7 @@ int main(int argc, char *argv[]){
     int options = 0;
     long pid = -1;
     char state;
+    unsigned long time;
 
     if (!parse_args(argc, argv, &options, &pid)) {
         printf("error: garbage option\n\n");
@@ -64,7 +66,24 @@ int main(int argc, char *argv[]){
         state = buff[0];
     }
     if (mask_bits(options, fTIME)){
+        char *stat_file = "/stat";
+        char *file_path = get_file_path_alloc(pid_directory, stat_file);
+        FILE *fPtr;
+        if ((fPtr = fopen(file_path, "r")) == NULL) { printf("Error opening file %s\n", file_path); exit(EXIT_FAILURE); }
+        free(file_path);
 
+        char buff[255];
+        unsigned long utime = 0;
+        unsigned long stime = 0;
+        for (int i = 0; i < 14; i++) {
+            fscanf(fPtr, "%s", buff);
+            utime = strtoul(buff, NULL, 10);
+        }
+        fscanf(fPtr, "%s", buff);
+        stime = strtoul(buff, NULL, 10);
+        fclose(fPtr);
+
+        time = (utime + stime) / sysconf(_SC_CLK_TCK);
     }
     if (mask_bits(options, fVIRTUAL)){
 
