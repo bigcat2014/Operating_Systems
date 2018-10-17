@@ -1,6 +1,10 @@
-//
-// Created by logan on 10/8/18.
-//
+/*
+ * Author: Logan Thomas
+ * Assignment Number: 1
+ * Date of Submission:
+ * Name of this file: helper.h
+ * Description: Header file for helper.c
+ */
 
 #ifndef ASSIGNMENT1_HELPER_H
 #define ASSIGNMENT1_HELPER_H
@@ -34,7 +38,10 @@ char* get_file_path_alloc(const char *pid_directory, const char *file_name);
 
 PROC_DIR_STATE check_proc_dir_exists(char *pid_str);
 
-
+char get_state(char *pid_directory);
+unsigned int get_time(char *pid_directory);
+unsigned int get_virtual_memory(char *pid_directory);
+void get_command(char *pid_directory, char return_val[]);
 
 //</editor-fold>
 

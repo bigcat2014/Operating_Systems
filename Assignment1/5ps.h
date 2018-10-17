@@ -1,6 +1,10 @@
-//
-// Created by logan on 10/3/18.
-//
+/*
+ * Author: Logan Thomas
+ * Assignment Number: 1
+ * Date of Submission:
+ * Name of this file: 5ps.h
+ * Description: Header file for 5ps.c
+ */
 
 #ifndef ASSIGNMENT1_ASSIGNMENT1_H
 #define ASSIGNMENT1_ASSIGNMENT1_H

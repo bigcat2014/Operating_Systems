@@ -1,6 +1,10 @@
-//
-// Created by logan on 10/4/18.
-//
+/*
+ * Author: Logan Thomas
+ * Assignment Number: 1
+ * Date of Submission:
+ * Name of this file: parser.h
+ * Description: Header file for parser.c
+ */
 
 #ifndef ASSIGNMENT1_PARSER_H
 #define ASSIGNMENT1_PARSER_H

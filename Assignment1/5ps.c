@@ -13,9 +13,6 @@
 #include "helper.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <assert.h>
-#include <zconf.h>
 
 //</editor-fold>
 
@@ -47,90 +44,25 @@ int main(int argc, char *argv[]) {
 	free(pid_str);
 	
 	if (mask_bits(options, fSTATE)) {
-		char *stat_file = "/stat";
-		char *file_path = get_file_path_alloc(pid_directory, stat_file);
-		FILE *fPtr;
-		if ((fPtr = fopen(file_path, "r")) == NULL) {
-			printf("Error opening file %s\n", file_path);
-			exit(EXIT_FAILURE);
-		}
-		free(file_path);
-		
-		char buff[255];
-		for (int i = 0; i < 3; i++) {
-			fscanf(fPtr, "%s", buff);
-		}
-		fclose(fPtr);
-		
-		assert(buff != NULL);
-		printf("State: %c\n", buff[0]);
-//		state = buff[0];
+		char state = get_state(pid_directory);
+		printf("State: %c\n", state);
 	}
 	if (mask_bits(options, fTIME)) {
-		char *stat_file = "/stat";
-		char *file_path = get_file_path_alloc(pid_directory, stat_file);
-		FILE *fPtr;
-		if ((fPtr = fopen(file_path, "r")) == NULL) {
-			printf("Error opening file %s\n", file_path);
-			exit(EXIT_FAILURE);
-		}
-		free(file_path);
+		unsigned int seconds = get_time(pid_directory);
 		
-		char buff[255];
-		unsigned int utime = 0;
-		unsigned int stime = 0;
-		unsigned int seconds = 0;
-		unsigned int minutes = 0;
-		unsigned int hours = 0;
-		
-		for (int i = 0; i < 14; i++) {
-			fscanf(fPtr, "%s", buff);
-			utime = strtoul(buff, NULL, 10);
-		}
-		fscanf(fPtr, "%s", buff);
-		stime = strtoul(buff, NULL, 10);
-		fclose(fPtr);
-		
-		seconds = (utime + stime) / sysconf(_SC_CLK_TCK);
-		
-		hours = seconds / 3600;
-		minutes = (seconds % 3600) / 60;
+		unsigned int hours = seconds / 3600;
+		unsigned int minutes = (seconds % 3600) / 60;
 		seconds = (seconds % 3600) % 60;
 		
 		printf("Time: %02u:%02u:%02u\n", hours, minutes, seconds);
 	}
 	if (mask_bits(options, fVIRTUAL)) {
-		char *stat_file = "/statm";
-		char *file_path = get_file_path_alloc(pid_directory, stat_file);
-		FILE *fPtr;
-		if ((fPtr = fopen(file_path, "r")) == NULL) {
-			printf("Error opening file %s\n", file_path);
-			exit(EXIT_FAILURE);
-		}
-		free(file_path);
-		
-		unsigned int vmemory;
-		char buff[255];
-		fscanf(fPtr, "%s", buff);
-		vmemory = strtoul(buff, NULL, 10);
-		fclose(fPtr);
-		
+		unsigned int vmemory = get_virtual_memory(pid_directory);
 		printf("Virtual memory: %u kB\n", vmemory);
 	}
 	if (mask_bits(options, fCOMMAND)) {
-		char *stat_file = "/cmdline";
-		char *file_path = get_file_path_alloc(pid_directory, stat_file);
-		FILE *fPtr;
-		if ((fPtr = fopen(file_path, "r")) == NULL) {
-			printf("Error opening file %s\n", file_path);
-			exit(EXIT_FAILURE);
-		}
-		free(file_path);
-		
 		char command_line[255];
-		fscanf(fPtr, "%s", command_line);
-		fclose(fPtr);
-		
+		get_command(pid_directory, command_line);
 		printf("Command: %s\n", command_line);
 	}
 	
