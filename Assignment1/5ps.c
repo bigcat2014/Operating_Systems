@@ -22,10 +22,6 @@
 int main(int argc, char *argv[]) {
 	int options = 0;
 	long pid = -1;
-	char state;
-	unsigned long time;
-	unsigned long vmemory;
-	char command_line[255];
 	
 	if (!parse_args(argc, argv, &options, &pid)) {
 		printf("error: garbage option\n\n");
@@ -40,7 +36,6 @@ int main(int argc, char *argv[]) {
 	PROC_DIR_STATE found = check_proc_dir_exists(pid_str);
 	switch (found) {
 		case FOUND:
-			printf("Found!\n");
 			break;
 		default:
 			printf("Process %s not found\n", pid_str);
@@ -68,7 +63,8 @@ int main(int argc, char *argv[]) {
 		fclose(fPtr);
 		
 		assert(buff != NULL);
-		state = buff[0];
+		printf("State: %c\n", buff[0]);
+//		state = buff[0];
 	}
 	if (mask_bits(options, fTIME)) {
 		char *stat_file = "/stat";
@@ -81,8 +77,12 @@ int main(int argc, char *argv[]) {
 		free(file_path);
 		
 		char buff[255];
-		unsigned long utime = 0;
-		unsigned long stime = 0;
+		unsigned int utime = 0;
+		unsigned int stime = 0;
+		unsigned int seconds = 0;
+		unsigned int minutes = 0;
+		unsigned int hours = 0;
+		
 		for (int i = 0; i < 14; i++) {
 			fscanf(fPtr, "%s", buff);
 			utime = strtoul(buff, NULL, 10);
@@ -91,7 +91,13 @@ int main(int argc, char *argv[]) {
 		stime = strtoul(buff, NULL, 10);
 		fclose(fPtr);
 		
-		time = (utime + stime) / sysconf(_SC_CLK_TCK);
+		seconds = (utime + stime) / sysconf(_SC_CLK_TCK);
+		
+		hours = seconds / 3600;
+		minutes = (seconds % 3600) / 60;
+		seconds = (seconds % 3600) % 60;
+		
+		printf("Time: %02u:%02u:%02u\n", hours, minutes, seconds);
 	}
 	if (mask_bits(options, fVIRTUAL)) {
 		char *stat_file = "/statm";
@@ -103,10 +109,13 @@ int main(int argc, char *argv[]) {
 		}
 		free(file_path);
 		
+		unsigned int vmemory;
 		char buff[255];
 		fscanf(fPtr, "%s", buff);
 		vmemory = strtoul(buff, NULL, 10);
 		fclose(fPtr);
+		
+		printf("Virtual memory: %u kB\n", vmemory);
 	}
 	if (mask_bits(options, fCOMMAND)) {
 		char *stat_file = "/cmdline";
@@ -118,8 +127,11 @@ int main(int argc, char *argv[]) {
 		}
 		free(file_path);
 		
+		char command_line[255];
 		fscanf(fPtr, "%s", command_line);
 		fclose(fPtr);
+		
+		printf("Command: %s\n", command_line);
 	}
 	
 	free(pid_directory);
