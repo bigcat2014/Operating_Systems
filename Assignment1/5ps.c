@@ -25,6 +25,7 @@ int main(int argc, char *argv[]) {
 	char state;
 	unsigned long time;
 	unsigned long vmemory;
+	char command_line[255];
 	
 	if (!parse_args(argc, argv, &options, &pid)) {
 		printf("error: garbage option\n\n");
@@ -108,7 +109,17 @@ int main(int argc, char *argv[]) {
 		fclose(fPtr);
 	}
 	if (mask_bits(options, fCOMMAND)) {
-	
+		char *stat_file = "/cmdline";
+		char *file_path = get_file_path_alloc(pid_directory, stat_file);
+		FILE *fPtr;
+		if ((fPtr = fopen(file_path, "r")) == NULL) {
+			printf("Error opening file %s\n", file_path);
+			exit(EXIT_FAILURE);
+		}
+		free(file_path);
+		
+		fscanf(fPtr, "%s", command_line);
+		fclose(fPtr);
 	}
 	
 	free(pid_directory);
