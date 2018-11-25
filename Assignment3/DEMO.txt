@@ -1,0 +1,109 @@
+/*
+ *   Author: Logan Thomas
+ *   Assignment number: 3
+ *   Date of submission: 11/24/18
+ *   Name of this file: DEMO.txt
+ */
+
+Input:
+    ./Assignment3 Inputs/input.txt
+
+Output:
+    Scheduler: Time now: 1 seconds
+    Scheduling process 0 (PID 12390)
+
+    Process 0: My priority is 6, my PID is 12390: I just got started.
+    I am starting with the number 9 to find the next prime number.
+
+    Process 0: My priority is 6, my PID is 12390: I am about to be suspended.
+    Highest prime number I have found is 39799
+
+    Scheduler: Time now: 2 seconds
+    Suspending process 0 (PID 12390) and starting process 2 (PID 12391)
+
+    Process 2: My priority is 2, my PID is 12391: I just got started.
+    I am starting with the number 9 to find the next prime number.
+
+    Scheduler: Time now: 3 seconds
+    Terminating process 2 (PID 12391)
+
+    Process 2: My priority is 2, my PID is 12391: I completed my task.
+    Highest prime number that I found was 28909
+
+    Scheduler: Time now: 3 seconds
+    Scheduling process 1 (PID 12393)
+
+    Process 1: My priority is 4, my PID is 12393: I just got started.
+    I am starting with the number 9 to find the next prime number.
+
+    Scheduler: Time now: 5 seconds
+    Terminating process 1 (PID 12393)
+
+    Process 1: My priority is 4, my PID is 12393: I completed my task.
+    Highest prime number that I found was 44959
+
+    Scheduler: Time now: 5 seconds
+    Scheduling process 0 (PID 12390)
+
+    Process 0: My priority is 6, my PID is 12390: I just got resumed.
+    Highest prime number I have found is 68771
+
+    Process 0: My priority is 6, my PID is 12390: I am about to be suspended.
+    Highest prime number I have found is 79601
+
+    Scheduler: Time now: 6 seconds
+    Suspending process 0 (PID 12390) and starting process 4 (PID 12394)
+
+    Process 4: My priority is 4, my PID is 12394: I just got started.
+    I am starting with the number 9 to find the next prime number.
+
+    Process 4: My priority is 4, my PID is 12394: I am about to be suspended.
+    Highest prime number I have found is 30203
+
+    Scheduler: Time now: 7 seconds
+    Suspending process 4 (PID 12394) and starting process 5 (PID 12396)
+
+    Process 5: My priority is 2, my PID is 12396: I just got started.
+    I am starting with the number 9 to find the next prime number.
+
+    Scheduler: Time now: 11 seconds
+    Terminating process 5 (PID 12396)
+
+    Process 5: My priority is 2, my PID is 12396: I completed my task.
+    Highest prime number that I found was 57719
+
+    Scheduler: Time now: 11 seconds
+    Scheduling process 4 (PID 12394)
+
+    Process 4: My priority is 4, my PID is 12394: I just got resumed.
+    Highest prime number I have found is 63907
+
+    Scheduler: Time now: 13 seconds
+    Terminating process 4 (PID 12394)
+
+    Process 4: My priority is 4, my PID is 12394: I completed my task.
+    Highest prime number that I found was 79393
+
+    Scheduler: Time now: 13 seconds
+    Scheduling process 0 (PID 12390)
+
+    Process 0: My priority is 6, my PID is 12390: I just got resumed.
+    Highest prime number I have found is 116537
+
+    Scheduler: Time now: 14 seconds
+    Terminating process 0 (PID 12390)
+
+    Process 0: My priority is 6, my PID is 12390: I completed my task.
+    Highest prime number that I found was 123863
+
+    Scheduler: Time now: 14 seconds
+    Scheduling process 3 (PID 12397)
+
+    Process 3: My priority is 6, my PID is 12397: I just got started.
+    I am starting with the number 9 to find the next prime number.
+
+    Scheduler: Time now: 16 seconds
+    Terminating process 3 (PID 12397)
+
+    Process 3: My priority is 6, my PID is 12397: I completed my task.
+    Highest prime number that I found was 53267

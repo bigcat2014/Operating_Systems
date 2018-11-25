@@ -24,13 +24,14 @@ Output:
         they are scheduled, resumed, paused, and terminated.
 
 Notes:
+    The input file is passed as an argument, not redirected input!
+
     To view current spawned processes of this assignment in real time, start the program using the following command:
-    ./Assignment3 Inputs/input.txt >> output.txt &
+    ./Assignment3 Inputs/input.txt > /dev/null &
 
     Then use the following command to view the current processes for the assignment as they're spawned and terminated:
     watch -n1 'ps -ely | grep -E "(Assignment3|prime)"'
 
     Once output from the watch command stops, this means Assignment3 has finished. Use Ctrl+C to stop the watch.
-    The output of Assignment3 will be in output.txt
 
-See DEMO.txt to view demos of the program
+See DEMO.txt to view a demo of the program
