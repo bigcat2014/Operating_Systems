@@ -8,9 +8,12 @@
 
 //<editor-fold desc="Includes">
 
+#define _GNU_SOURCE
 #include "helper.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <assert.h>
+#include <sys/types.h>
 #include <ctype.h>
 
 //</editor-fold>
