@@ -8,6 +8,8 @@
 
 //<editor-fold desc="Includes">
 
+#define _GNU_SOURCE
+
 #include "Assignment4.h"
 #include <stdint.h>
 #include <stdlib.h>
@@ -20,11 +22,12 @@
 //<editor-fold desc="Function declarations">
 
 int8_t get_lowest_value_index(const int8_t lru[]);
+
 int get_page(const int8_t page_table[], int8_t frame);
 
 //</editor-fold>
 
-int main(int argc, char **argv){
+int main(int argc, char **argv) {
 	// Pointer to hold the name of the address file
 	char *address_filename = argv[1];
 	// Array to hold the page table
@@ -43,7 +46,7 @@ int main(int argc, char **argv){
 	float page_faults = 0;
 	// The total number of accesses
 	float total_accesses = 0;
-
+	
 	// File pointer to the file containing the addresses
 	FILE *address_file_ptr;
 	// File pointer to the backing store
@@ -88,16 +91,16 @@ int main(int argc, char **argv){
 		frame = page_table[page];
 		
 		// Page fault, consult BACK_STORE.bin
-		if (frame == -1){
+		if (frame == -1) {
 			
 			// Buffer to store the data from BACKING_STORE.bin
 			int8_t data_block[DATA_BLOCK_SIZE];
 			
 			// Open the file
-			backing_store_file_ptr = fopen("../BACKING_STORE.bin", "rb");
+			backing_store_file_ptr = fopen("BACKING_STORE.bin", "rb");
 			// Make sure the file pointer is not NULL
 			assert(backing_store_file_ptr != NULL);
-
+			
 			// Seek to the proper address in backing store
 			fseek(backing_store_file_ptr, PAGE_ADDRESS(page), SEEK_SET);
 			// Read the data from the backing store into data_block
@@ -106,7 +109,7 @@ int main(int argc, char **argv){
 			fclose(backing_store_file_ptr);
 			
 			// If the lru is full, kick a block out of RAM to make room to the new room
-			if (lru_count >= FRAME_COUNT){
+			if (lru_count >= FRAME_COUNT) {
 				// Get the least recently used frame from the lru
 				frame = get_lowest_value_index(lru);
 				// Get the page associated with the least recently used frame
@@ -133,12 +136,13 @@ int main(int argc, char **argv){
 		physical_address = PHYSICAL_ADDRESS(frame, offset);
 		
 		// Open the file
-		output_file_ptr = fopen("../output.txt", "a");
+		output_file_ptr = fopen("output.txt", "a");
 		// Make sure the file pointer is not NULL
 		assert(output_file_ptr != NULL);
 		
 		// Print to the file
-		fprintf(output_file_ptr, "Virtual address: %d,\t\tPhysical address: %d,\t\tValue: %d\n", address, physical_address, ram[physical_address]);
+		fprintf(output_file_ptr, "Virtual address: %d,\t\tPhysical address: %d,\t\tValue: %d\n", address,
+		        physical_address, ram[physical_address]);
 		// Close the file
 		fclose(output_file_ptr);
 	}
@@ -151,7 +155,7 @@ int main(int argc, char **argv){
 	}
 	
 	// Print the page fault rate
-	printf("Page fault rate: %.02f%%\n", 100*(page_faults/total_accesses));
+	printf("Page fault rate: %.02f%%\n", 100 * (page_faults / total_accesses));
 	exit(EXIT_SUCCESS);
 }
 
@@ -163,13 +167,13 @@ int main(int argc, char **argv){
  * Output: The least recently used frame number
  * Description: Goes through the lru and finds the least recently used frame
  */
-int8_t get_lowest_value_index(const int8_t lru[]){
+int8_t get_lowest_value_index(const int8_t lru[]) {
 	// The result frame
 	int8_t result = 0;
 	// Loop through the lru
-	for (int8_t i = 1; i < FRAME_COUNT; i++){
+	for (int8_t i = 1; i < FRAME_COUNT; i++) {
 		// If the lru at index i is less than the lru at the current index, store the new index
-		if (lru[i] < lru[result]){
+		if (lru[i] < lru[result]) {
 			result = i;
 		}
 	}
@@ -183,13 +187,13 @@ int8_t get_lowest_value_index(const int8_t lru[]){
  * Output: The page associated with the frame
  * Description: Goes through the page table and finds the page that is stored in the given frame
  */
-int get_page(const int8_t page_table[], int8_t frame){
+int get_page(const int8_t page_table[], int8_t frame) {
 	// The result page
 	int result = 0;
 	// Loop through the page table
-	for (int i = 0; i < NUM_PAGES; i++){
+	for (int i = 0; i < NUM_PAGES; i++) {
 		// If the page table at index i contains the frame, store the page and break
-		if (page_table[i] == frame){
+		if (page_table[i] == frame) {
 			result = i;
 			break;
 		}

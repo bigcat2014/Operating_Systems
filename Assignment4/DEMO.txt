@@ -1,0 +1,15 @@
+/*
+ *   Author: Logan Thomas
+ *   Assignment number: 4
+ *   Date of submission: 12/11/18
+ *   Name of this file: DEMO.txt
+ */
+
+Input:
+    ./Assignment4 addressesModified.txt
+
+Output:
+    Page fault rate: 75.60%
+
+Note:
+    Also outputs the output.txt file
